@@ -24,6 +24,13 @@ SECRET_KEY = '9mml1zfw(yxtqu)0kgge#^290$wzh)j0zw9%g1md8oa=bld3p7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -37,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'personal_cabinet',
 ]
+
+#AUTH_USER_MODEL = 'personal_cabinet.models.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,13 +84,13 @@ WSGI_APPLICATION = 'cabinet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'cabinet',
-        # 'USER': 'postgres',
-        # 'PASSWORD': 'postgres'
         'NAME': 'cabinet',
-        'USER': 'cxdbuser',
-        'PASSWORD': 'cxdbwizard',
-        'PORT': 10000
+        'USER': 'postgres',
+        'PASSWORD': 'postgres'
+        # 'NAME': 'cabinet',
+        # 'USER': 'cxdbuser',
+        # 'PASSWORD': 'cxdbwizard',
+        # 'PORT': 10000
     },
     'local': {
         'ENGINE': 'django.db.backends.sqlite3',

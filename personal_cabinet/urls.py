@@ -5,5 +5,5 @@ from . import views
 
 urlpatterns = [
 
-    url(r'^(?P<acc_id>[0-9]+)/$', views.user_account_page)
+    url(r'(?P<acc_id>[0-9]+)/$', views.user_account_page)
 ]

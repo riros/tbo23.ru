@@ -1,1 +1,10 @@
 # Created by .ignore support plugin (hsz.mobi)
+__pychache__
+*.pyc
+.idea
+Будет удалено .idea/dataSources.local.xml
+Будет удалено .idea/workspace (2).xml
+Будет удалено .idea/workspace.xml
+Будет удалено cabinet/__pycache__/
+Будет удалено personal_cabinet/__pycache__/
+Будет удалено personal_cabinet/migrations/__pycache__/
