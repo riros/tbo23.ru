@@ -2,9 +2,12 @@
 __pychache__
 *.pyc
 .idea
+*.log
 Будет удалено .idea/dataSources.local.xml
 Будет удалено .idea/workspace (2).xml
 Будет удалено .idea/workspace.xml
 Будет удалено cabinet/__pycache__/
 Будет удалено personal_cabinet/__pycache__/
 Будет удалено personal_cabinet/migrations/__pycache__/
+Будет удалено logs/
+
