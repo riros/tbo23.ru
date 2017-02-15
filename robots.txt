@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /accounts # блокирует доступ к страницам,  
+                   # начинающимся с '/cgi-bin'
