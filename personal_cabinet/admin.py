@@ -3,20 +3,11 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from personal_cabinet.models import *
+from django.contrib.auth.models import Permission
 
-
-# class AccountInLine(admin.StackedInline):
-#     model = Account
-#     can_delete = False
-#     verbose_name_plural = "accounts"
-#
-# class UserAdmin(BaseUserAdmin):
-#     inlines = (AccountInLine,)
-#
-# admin.site.register(UserAdmin)
-
-from personal_cabinet.models import EUser
-
+from django.utils.html import format_html
+from django.core.urlresolvers import reverse
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
@@ -26,9 +17,8 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = EUser
-        #fields = ('username', 'email', 'date_of_birth')
+        # fields = ('username', 'email', 'date_of_birth')
         fields = '__all__'
-
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -67,22 +57,20 @@ class UserChangeForm(forms.ModelForm):
         return self.initial["password"]
 
 
+@admin.register(EUser)
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
-
-
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('username', 'email', 'date_of_birth', 'phone', 'is_admin', 'comment',)
-    list_filter = ('is_admin',)
+    list_display = ('username', 'email', 'date_of_birth', 'pretty_phone', 'is_superuser', 'comment',)
+    list_filter = ('is_superuser',)
     fieldsets = (
-        (None, {'fields': ('username', 'email', 'password',)}),
-        ("Контакты", {'fields': ('phone', 'comment' )}),
+        (None, {'fields': ('username', 'first_name', 'middle_name', 'last_name', 'password', 'is_superuser')}),
+        ("Контакты", {'fields': ('email', 'phone', 'comment')}),
         ('Личная информация', {'fields': ('date_of_birth',)}),
-        ('Разрешения', {'fields': ('is_admin',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
@@ -96,12 +84,45 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
+    def pretty_phone(self, euser):
+        # verbose_name = _('phone')
+        return '+7 %s' % euser.phone
+    pretty_phone.short_description = 'Телефон'
+
+
+@admin.register(MonthBalance)
+class MonthBalanceAdmin(admin.ModelAdmin):
+    list_display = (
+        'account_link',
+        'date',
+        'user_count',
+        'price',
+        'credit',
+        'payment',
+    )
+    list_display_links = ('date',)
+    list_select_related = ('account',)
+    search_fields = ('account__name',)
+
+    def account_link(self, obj):
+        return format_html('<a href="%s"> %s</a>' % (reverse('admin:%s_%s_change' % (obj._meta.app_label, obj.account._meta.model_name), args=[obj.account.name]), obj.account.name))
+    account_link.short_description = "Лицевой счет"
+
+
+@admin.register(Account)
+class AccountAdmin(admin.ModelAdmin):
+    list_display = ('name', 'euser', 'date_open', 'date_closed', 'address_str', 'ic_owner_id', 'fias_address_uuid',)
+    list_display_links = ('name', )
+    pass
+
 
 # Now register the new UserAdmin...
-admin.site.register(EUser, UserAdmin)
-admin.site.site_header = 'Административный раздел'
+# admin.site.register([Account, MonthBalance])
+admin.site.site_header = 'Личный кабинет'
 admin.site.site_title = 'ООО "Кубань ТБО"'
-admin.site.index_title = 'Основной раздел'
+admin.site.index_title = 'Начало'
+
+
 
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.

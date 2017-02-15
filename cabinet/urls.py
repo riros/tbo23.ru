@@ -18,6 +18,6 @@ from django.contrib import admin
 from personal_cabinet import views,urls
 
 urlpatterns = [
-    url(r'^cms/', admin.site.urls),
+    url(r'^accounts/', admin.site.urls),
     url(r'^', include(urls))
 ]
