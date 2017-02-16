@@ -1,10 +1,16 @@
 from django.db.models import \
     CharField, UUIDField, Model, IntegerField, DateField,\
     BooleanField, ManyToManyField, TextField, EmailField, ForeignKey, FloatField
+
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
+
+import random
 
 
 class EUserManager(BaseUserManager):
@@ -47,8 +53,8 @@ class EUserManager(BaseUserManager):
 
 class EUser(AbstractUser):
     phone = CharField(blank=True, verbose_name='Номер телефона', max_length=12)
-    email = EmailField(_('email address'), blank=False, unique=True)
-    date_of_birth = DateField(verbose_name="день рождения", null=True)
+    email = EmailField(_('email address'), blank=True, unique=True)
+    date_of_birth = DateField(verbose_name="день рождения", blank=True, null=True)
     #    is_admin = BooleanField(default=False, verbose_name="администратор")
     # accounts = ManyToManyField(Account)
     # идентификатор в 1с
@@ -57,6 +63,7 @@ class EUser(AbstractUser):
     middle_name = CharField(_('Отчество'), max_length=30, blank=True)
     # 0000-0000-0000-0000
     activation_code = CharField(_('Код активации'), max_length=20, blank=True, null=True)
+    REQUIRED_FIELDS = []
 
 
     def get_full_name(self):
@@ -67,6 +74,44 @@ class EUser(AbstractUser):
         return full_name.strip()
 
     pass
+
+    @staticmethod
+    def extract_phone(phone=''):
+        phone = phone.replace('+7', '')
+        phone = phone.replace('(', '')
+        phone = phone.replace(')', '')
+        phone = phone.replace('-', '')
+        phone = phone.replace(' ', '')
+        return phone
+
+    @staticmethod
+    def _split_name ( s='', i=0):
+        # Фадеева         Лариса         Константиновна
+        s = s.replace('  ', ' ')
+        spl = s.split(' ')
+        try:
+            ret = spl[i]
+        except Exception:
+            ret = None
+        return ret
+
+    @classmethod
+    def extract_first_name(cls, s=''):
+        return cls._split_name(s, 1)
+
+    @classmethod
+    def extract_last_name(cls, s=''):
+        return cls._split_name(s, 0)
+
+    @classmethod
+    def extract_middle_name(cls, s=''):
+        return cls._split_name(s, 2)
+
+    @staticmethod
+    def generate_activation_code():
+        return random.randrange(100000000000, 999999999999)
+
+
 
 class Account(Model):
     name = CharField(max_length=12, primary_key=True, null=False, help_text='номер лицевого счета', verbose_name='Лицевой счет')
@@ -121,4 +166,8 @@ class MonthBalance(Model):
         return "%i-%i" % (self.date.year, self.date.month)
 
 
-
+@receiver(pre_save, sender=EUser)
+def pre_save_callback(sender=EUser,  **kwargs):
+    instance = kwargs['instance']
+    if not instance.activation_code:
+        instance.activation_code = sender.generate_activation_code()

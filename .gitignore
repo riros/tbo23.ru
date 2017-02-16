@@ -4,5 +4,6 @@ __pycache__
 *.log
 /*.json
 import/
+!import/keepfile
 db.sqlite3
 cabinet/*settings.py
