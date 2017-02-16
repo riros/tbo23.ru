@@ -3,7 +3,6 @@ __pycache__
 /.idea/
 *.log
 /*.json
-logs/
 import/
 db.sqlite3
-cabinet/settings.py
+cabinet/*settings.py
