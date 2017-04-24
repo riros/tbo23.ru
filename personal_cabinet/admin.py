@@ -111,7 +111,7 @@ class MonthBalanceAdmin(admin.ModelAdmin):
 
 @admin.register(Account)
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ('name', 'euser', 'date_open', 'date_closed', 'address_str', 'ic_owner_id', 'fias_address_uuid',)
+    list_display = ('name', 'euser', 'date_open', 'date_closed', 'address_str', 'fias_address_uuid',)
     list_display_links = ('name', )
     pass
 

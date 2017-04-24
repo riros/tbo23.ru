@@ -60,7 +60,7 @@ class EUser(AbstractUser):
     # идентификатор в 1с
     alias_id = UUIDField(null=False, auto_created=True, default='00000000-0000-0000-0000-000000000000')
     comment = TextField(null=True, verbose_name='Комментарий', blank=True)
-    middle_name = CharField(_('Отчество'), max_length=30, blank=True)
+    middle_name = CharField(_('Отчество'), max_length=30, blank=True, null=True)
     # 0000-0000-0000-0000
     activation_code = CharField(_('Код активации'), max_length=20, blank=True, null=True)
     REQUIRED_FIELDS = []
@@ -115,7 +115,7 @@ class EUser(AbstractUser):
 
 class Account(Model):
     name = CharField(max_length=12, primary_key=True, null=False, help_text='номер лицевого счета', verbose_name='Лицевой счет')
-    ic_owner_id = UUIDField(null=False, default='00000000-0000-0000-0000-000000000000', verbose_name='код пользователя в 1с')
+    #ic_owner_id = UUIDField(null=False, default='00000000-0000-0000-0000-000000000000', verbose_name='код пользователя в 1с')
     address_str = TextField(null=True, blank=True, verbose_name='Адрес')
     fias_address_uuid = UUIDField(null=True, blank=True, verbose_name='Код адреса в системе fias')
     date_open = DateField(null=False, verbose_name='дата открытия')
@@ -146,7 +146,7 @@ class MonthBalance(Model):
     price = FloatField(verbose_name='суммарная цена услуг с человека', default=0)
     credit = FloatField(verbose_name='Начислено', default=0)
     payment = FloatField(verbose_name="Оплачено", default=0)
-    debt = FloatField(verbose_name="Задолжность", default=0)
+    debet = FloatField(verbose_name="Задолжность", default=0)
     discounts = ArrayField(FloatField(), null=True, blank=True, verbose_name='Скидки',
                            help_text='В рублях через запятую. Например: 20,50')
 

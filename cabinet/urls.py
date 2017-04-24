@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from personal_cabinet import views,urls
+from personal_cabinet import urls as pc_urls
+from siteindex import urls as si_urls
 
 urlpatterns = [
     url(r'^accounts/', admin.site.urls),
-    url(r'^', include(urls))
+    url(r'^cabinet/', include(pc_urls)),
+    url(r'^', include(si_urls))
 ]
