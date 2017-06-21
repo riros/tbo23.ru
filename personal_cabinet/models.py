@@ -77,12 +77,14 @@ class EUser(AbstractUser):
 
     @staticmethod
     def extract_phone(phone=''):
-        phone = phone.replace('+7', '')
-        phone = phone.replace('(', '')
-        phone = phone.replace(')', '')
-        phone = phone.replace('-', '')
-        phone = phone.replace(' ', '')
-        return phone
+        #todo
+        return phone.replace('+7', '')\
+            .replace('+7', '')\
+            .replace('(', '')\
+            .replace('(', '')\
+            .replace('-', '')\
+            .replace(' ', '')
+
 
     @staticmethod
     def _split_name ( s='', i=0):

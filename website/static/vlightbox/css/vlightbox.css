@@ -1,0 +1,34 @@
+#vlightbox {
+    zoom: 1;
+}
+
+#vlightbox span {
+    display: block;
+}
+
+#vlightbox a {
+    /*display: -moz-inline-stack;*/
+    /*display: inline-block;*/
+    zoom: 1;
+    /**display: inline;*/
+    /*position: relative;*/
+    /*vertical-align: top;*/
+    /*margin: 3px;*/
+    /*width: 184px;*/
+    /*font-family: Trebuchet, Tahoma, Arial, sans-serif;*/
+    /*font-size: 11px;*/
+    /*font-weight: normal;*/
+    /*text-align: center;*/
+    /*opacity: 0.87;*/
+}
+
+#vlightbox a img {
+    /*display: block;*/
+    /*border: none;*/
+    /*margin: 0;*/
+}
+
+#vlightbox a:hover {
+    text-decoration: underline;
+    opacity: 1;
+}

@@ -5,5 +5,8 @@ __pycache__
 /*.json
 import/
 !import/keepfile
+/media/*
+!media/keepfile
+/static/*
+!static/keepfile
 db.sqlite3
-cabinet/*settings.py
