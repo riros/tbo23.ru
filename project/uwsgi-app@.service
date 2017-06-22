@@ -1,0 +1,21 @@
+[Unit]
+Description=%i uWSGI app
+After=syslog.target
+
+[Service]
+ExecStart=/usr/bin/uwsgi \
+	--ini /etc/uwsgi/apps-enabled/%i.ini \
+	--socket /var/run/uwsgi/%i.socket
+
+#User=www-%i
+#Group=www-data
+User=nginx
+Group=nginx
+Restart=on-failure
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
