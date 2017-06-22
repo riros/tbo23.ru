@@ -30,7 +30,7 @@ else:
     try:
         from .secret import SECRET_KEY
     except:
-        raise Exception("Нужно определить секретный ключ geliotech/secret/py ")
+        raise Exception("Нужно определить секретный ключ secret.py ")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = platform.node() != PRODUCTION_PLATFORM_NODE
 ALLOWED_HOSTS = ['*']
