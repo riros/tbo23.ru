@@ -120,7 +120,7 @@
         <div class="col-xs-6 col-sm-6 col-md-3 templatemo_col12">
             <h2>Техническая поддержка</h2>
             <span class="left col-xs-1 fa fa-envelope"></span>
-            <span class="right col-xs-11 ">it@tbo23.ru</span>
+            <span class="right col-xs-11 "><a href="mailto:it@tbo23.ru">it@tbo23.ru</a> </span>
             <div class="clear height10"></div>
             <span class="left col-xs-1 fa fa-phone"></span>
             <span class="right col-xs-11">+7 918 352-88-99</span>
@@ -150,44 +150,46 @@
     <div class="container">
         <div class="row">
             <div class="left">
-                <!-- Yandex.Metrika informer -->
-                <a href="https://metrika.yandex.ru/stat/?id=45077884&amp;from=informer"
-                   target="_blank" rel="nofollow"><img
-                        src="https://informer.yandex.ru/informer/45077884/3_0_333536FF_333536FF_1_uniques"
-                        style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика"
-                        title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)"
-                        class="ym-advanced-informer" data-cid="45077884" data-lang="ru"/></a>
-                <!-- /Yandex.Metrika informer --> <!-- Yandex.Metrika counter -->
-                <script type="text/javascript"> (function (d, w, c) {
-                    (w[c] = w[c] || []).push(function () {
-                        try {
-                            w.yaCounter45077884 = new Ya.Metrika({
-                                id: 45077884,
-                                clickmap: true,
-                                trackLinks: true,
-                                accurateTrackBounce: true,
-                                webvisor: true
-                            });
-                        } catch (e) {
+                {% if not DEBUG %}
+                    <!-- Yandex.Metrika informer -->
+                    <a href="https://metrika.yandex.ru/stat/?id=45077884&amp;from=informer"
+                       target="_blank" rel="nofollow"><img
+                            src="https://informer.yandex.ru/informer/45077884/3_0_333536FF_333536FF_1_uniques"
+                            style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика"
+                            title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)"
+                            class="ym-advanced-informer" data-cid="45077884" data-lang="ru"/></a>
+                    <!-- /Yandex.Metrika informer --> <!-- Yandex.Metrika counter -->
+                    <script type="text/javascript"> (function (d, w, c) {
+                        (w[c] = w[c] || []).push(function () {
+                            try {
+                                w.yaCounter45077884 = new Ya.Metrika({
+                                    id: 45077884,
+                                    clickmap: true,
+                                    trackLinks: true,
+                                    accurateTrackBounce: true,
+                                    webvisor: true
+                                });
+                            } catch (e) {
+                            }
+                        });
+                        var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () {
+                            n.parentNode.insertBefore(s, n);
+                        };
+                        s.type = "text/javascript";
+                        s.async = true;
+                        s.src = "https://mc.yandex.ru/metrika/watch.js";
+                        if (w.opera == "[object Opera]") {
+                            d.addEventListener("DOMContentLoaded", f, false);
+                        } else {
+                            f();
                         }
-                    });
-                    var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () {
-                        n.parentNode.insertBefore(s, n);
-                    };
-                    s.type = "text/javascript";
-                    s.async = true;
-                    s.src = "https://mc.yandex.ru/metrika/watch.js";
-                    if (w.opera == "[object Opera]") {
-                        d.addEventListener("DOMContentLoaded", f, false);
-                    } else {
-                        f();
-                    }
-                })(document, window, "yandex_metrika_callbacks"); </script>
-                <noscript>
-                    <div><img src="https://mc.yandex.ru/watch/45077884" style="position:absolute; left:-9999px;"
-                              alt=""/></div>
-                </noscript>
-                <!-- /Yandex.Metrika counter -->
+                    })(document, window, "yandex_metrika_callbacks"); </script>
+                    <noscript>
+                        <div><img src="https://mc.yandex.ru/watch/45077884" style="position:absolute; left:-9999px;"
+                                  alt=""/></div>
+                    </noscript>
+                    <!-- /Yandex.Metrika counter -->
+                {% endif %}
             </div>
             <div class="left" style="padding-left: 30px;">
                 <span>Copyright © 2017 <a href="mailto:it@tbo23.ru">ООО Кубань-ТБО</a></span>
