@@ -3,8 +3,8 @@ __pycache__
 /.idea/
 *.log
 /*.json
-import/
-!import/keepfile
+/import
+!/import/keepfile
 /media/*
 !media/keepfile
 /static/*

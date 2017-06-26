@@ -89,12 +89,12 @@ class Command(BaseCommand):
                                     self.stderr.write(
                                         'Ошибка формата телефона: "%s",  пользователь: %s %s \n' % (
                                             sph, euser.get_full_name(), euser.alias_id))
-                        try:
-                            euser.save()
-                        except:
-                            self.stderr.write(
-                                "Ошибка сохранения пользователя, %s %s \n" % (euser.get_full_name(), euser.alias_id))
-                            break
+                        # try:
+                        euser.save()
+                        # except:
+                        #     self.stderr.write(
+                        #         "Ошибка сохранения пользователя, %s %s \n" % (euser.get_full_name(), euser.alias_id))
+
 
                         acc = Account.objects.filter(name=n)
                         try:
