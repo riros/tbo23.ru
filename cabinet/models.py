@@ -7,7 +7,6 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
 from django.contrib.auth.models import BaseUserManager, AbstractUser
-from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 from phonenumber_field.modelfields import PhoneNumberField
@@ -168,8 +167,9 @@ class MonthBalance(defModel):
     credit = FloatField(verbose_name='Начислено', default=0)
     payment = FloatField(verbose_name="Оплачено", default=0)
     debet = FloatField(verbose_name="Задолжность", default=0)
-    discounts = ArrayField(FloatField(), null=True, blank=True, verbose_name='Скидки',
-                           help_text='В рублях через запятую. Например: 20,50')
+    # discounts = ArrayField(FloatField(), null=True, blank=True, verbose_name='Скидки',
+    #                        help_text='В рублях через запятую. Например: 20,50')
+    discount = FloatField(null=True, blank=True, verbose_name="Скидка")
 
     class Meta:
         verbose_name = _('Баланс по месяцам')
