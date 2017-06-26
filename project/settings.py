@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import platform
+
 # from psycopg2cffi import compat
 # compat.register()
 
@@ -47,24 +48,26 @@ LOGOUT_REDIRECT_URL = '/'
 # Application definition
 
 INSTALLED_APPS = [
-    # 'personal_cabinet',
+    'sorl.thumbnail',
+    'sorl_cropping',
+    'markitup',
+    'phonenumber_field',
+    'cabinet',
+    'website',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sorl.thumbnail',
-    'sorl_cropping',
-    'markitup',
-    'website',
+
 ]
 
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'assets'),
 # )
 
-# AUTH_USER_MODEL = 'personal_cabinet.EUser'
+AUTH_USER_MODEL = 'cabinet.EUser'
 
 MIDDLEWARE = [
     'django.middleware.cache.UpdateCacheMiddleware',
@@ -115,7 +118,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'cabinet',
+    #     'NAME': 'tbo23',
     #     'USER': 'postgres',
     #     'PASSWORD': 'postgres'
     #     # 'NAME': 'cabinet',
@@ -166,7 +169,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-CACHE_NAME = 'lanzeva'
+LOGIN_REDIRECT_URL = '/panel/login'
 
 if DEBUG:
     CACHES = {

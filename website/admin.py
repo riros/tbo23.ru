@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 
+
 from sorl_cropping import ImageCroppingMixin
 from sorl.thumbnail.admin.current import AdminImageMixin
 from django.db import models
@@ -24,3 +25,4 @@ class LicAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_editable = [
         'pdate', 'text', 'active'
     ]
+

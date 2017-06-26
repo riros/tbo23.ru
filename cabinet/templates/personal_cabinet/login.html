@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{#{% extends "admin/base_site.html" %}#}
+
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/login.css" %}"/>
+    {{ form.media }}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+    <div class="container-fluid" id="templatemo_lic">
+        <div class="row text-center">
+            <div class="col-lg-12"><h3>Авторизация в личном кабенете ООО "Кубань-ТБО"</h3></div>
+        </div>
+        <div class="row margin-bottom-30">
+{#            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-0">#}
+{##}
+{#            </div>#}
+            <div class="col-lg-push-3 col-lg-6 col-md-push-3 col-md-6 col-sm-push-3 col-sm-6 col-xs-12">
+
+                {% if form.errors and not form.non_field_errors %}
+                    <p class="errornote">
+                        {% if form.errors.items|length == 1 %}
+                            {% trans "Please correct the error below." %}{% else %}
+                            {% trans "Please correct the errors below." %}{% endif %}
+                    </p>
+                {% endif %}
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <p class="errornote">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+                {% endif %}
+
+                <div id="content-main" class="container-fluid">
+
+                    {% if user.is_authenticated %}
+                        <p class="errornote">
+                            {% blocktrans trimmed %}
+                                You are authenticated as {{ username }}, but are not authorized to
+                                access this page. Would you like to login to a different account?
+                            {% endblocktrans %}
+                        </p>
+                    {% endif %}
+
+                    <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+                        <div class="form-row">
+                            {{ form.username.errors }}
+                            {{ form.username.label_tag }} {{ form.username }}
+                        </div>
+                        <div class="form-row">
+                            {{ form.password.errors }}
+                            {{ form.password.label_tag }} {{ form.password }}
+                            <input type="hidden" name="next" value="{{ next }}"/>
+                        </div>
+                        {% url 'admin_password_reset' as password_reset_url %}
+                        {% if password_reset_url %}
+                            <div class="password-reset-link">
+                                <a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a>
+                            </div>
+                        {% endif %}
+                        <div class="row text-center">
+                            <input style="font-size: 2em; margin-top: 20px" type="submit" value="{% trans 'Log in' %}"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {#        <p><b>Форма обратной связи</b></p>#}
+        {#        <p> По вопросам ненадлежащего оказания услуг, в целях оперативного устранения допущенных нарушений Вы#}
+        {#            можете связаться с нами, используя <a href="http://tbo23.ru/contacts">форму обратной связи</a></p>#}
+        {#            <div class="clear height10"></div>#}
+        {#	        <div class="fa fa-bell-o"></div>#}
+        {#            <div class="fa fa-tablet"></div>#}
+        {#            <div class="fa fa-lock"></div>#}
+        {#			<div class="clear height20"></div>#}
+        {#            <a class="btn btn-large btn-primary" href="#">Read More</a>#}
+    </div>
+    <div class="clear"></div>
+{% endblock %}

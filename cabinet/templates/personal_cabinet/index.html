@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}"/>{% endblock %}
+
+{% block coltype %}colC{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block usertools %}
+    <div id="user-tools">
+        {% block welcome-msg %}
+            {% trans 'Welcome,' %}
+            {#                <a href="{% url 'admin:euser_edit' %}">#}
+            <strong>{% firstof user.get_full_name user.get_short_name user.get_username %}</strong>.
+            {#                </a>#}
+        {% endblock %}
+        {% block userlinks %}
+            {% if site_url %}
+                <a href="{{ site_url }}">{% trans 'View site' %}</a> /
+            {% endif %}
+            {% if user.has_usable_password %}
+                <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
+            {% endif %}
+            <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+{% block branding %} Личный кабинет ООО "Кубань-ТБО" {% endblock %}
+{% block content %}
+    <div id="content-main">
+        <div class="row">
+            <div class="col-lg-3">
+            </div>
+            <div class="col-lg-6">
+                {% if accounts %}
+                    {% for acc in accounts %}
+                        <div class="account-{{ acc.name }} module">
+                            <table>
+                                <caption>
+                                    <div class="section">Лицевой счет № {{ acc.name }}</div>
+                                </caption>
+
+                                {% if acc.get_balances %}
+                                    <tr>
+                                        <th scope="row">Период</th>
+                                        <th scope="row">Количество проживающих</th>
+                                        <th scope="row">Цена услуги с человека</th>
+                                        <th scope="row">Начислено</th>
+                                        <th scope="row">Платеж</th>
+                                        <th scope="row">Задолжность</th>
+                                        <th scope="row">скидка в рублях</th>
+                                    </tr>
+                                    {% for model in acc.get_balances %}
+                                        <tr class="model-{{ model.pk|lower }}">
+                                            <td scope="row">{{ model.short_name }}</td>
+                                            <td scope="row">{{ model.user_count }}</td>
+                                            <td scope="row">{{ model.price }}</td>
+                                            <td scope="row">{{ model.credit }}</td>
+                                            <td scope="row">{{ model.payment }}</td>
+                                            <td scope="row">{{ model.debt }}</td>
+
+                                            <td scope="row">
+                                                {% if model.discounts %}
+                                                    {{ model.discounts }}
+                                                {% else %}
+                                                    нет
+                                                {% endif %}
+                                            </td>
+
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td>Данные или еще не загружены, или лицевой счет не содержит начислений.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="http://tbo23.ru/">Венуться на сайт tbo23.ru</a></td>
+                                    </tr>
+                                {% endif %}
+                            </table>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-bottom-30">
+                                <h2>Осталось еще немного...</h2>
+                            </div>
+                        </div>
+                    </div>
+                    {#            <p>{% trans "You don't have permission to edit anything." %}</p>#}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
