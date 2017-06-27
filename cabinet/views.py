@@ -67,7 +67,9 @@ class LoginView(SuccessURLAllowedHostsMixin, FormView):
     form_class = AuthenticationForm
     authentication_form = None
     redirect_field_name = REDIRECT_FIELD_NAME
-    template_name = 'personal_cabinet/login.html'
+    # template_name = 'personal_cabinet/login.html'
+    template_name = 'personal_cabinet/login-2.html'
+
     redirect_authenticated_user = False
     extra_context = None
 
