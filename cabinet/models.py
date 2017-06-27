@@ -13,6 +13,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.db import models
 import random
 
+from django.utils.dateformat import format
+
 
 class defModel(models.Model):
     cdate = models.DateTimeField(verbose_name='Дата создания', auto_now=True)
@@ -146,6 +148,13 @@ class Account(defModel):
     class Meta:
         verbose_name = _('Лицевой счет')
         verbose_name_plural = _('Лицевые счета')
+
+    def get_balance(self, accurate=2):
+        mbs = MonthBalance.objects.filter(active=True, account=self)
+        ret = 0
+        for mb in mbs:
+            ret = ret - mb.debet
+        return round(ret, accurate)
 
     @staticmethod
     def has_module_perms():

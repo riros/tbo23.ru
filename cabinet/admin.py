@@ -107,16 +107,18 @@ class EUserAdmin(BaseUserAdmin):
 class MonthBalanceAdmin(admin.ModelAdmin):
     list_display = (
         'account_link',
-        'date',
+        'pretty_date',
         'user_count',
         'price',
         'credit',
         'payment',
+        'debet'
     )
     readonly_fields = ('account',)
-    list_display_links = ('date',)
+    list_display_links = ('pretty_date',)
     list_select_related = ('account',)
     search_fields = ('account__name',)
+    ordering = ['-date']
 
     def account_link(self, obj):
         return format_html('<a href="%s"> %s</a>' % (
@@ -125,6 +127,11 @@ class MonthBalanceAdmin(admin.ModelAdmin):
             obj.account.name))
 
     account_link.short_description = "Лицевой счет"
+
+    def pretty_date(self, MB):
+        return format(MB.date, 'M Y')
+
+    pretty_date.short_description = "период"
 
 
 @admin.register(Account)
@@ -146,10 +153,9 @@ class AccountAdmin(admin.ModelAdmin):
     owner_link.short_description = "Владелец"
 
     def balances_link(self, account):
-
-        return format_html('<a href="%s"> %s</a>' % (
-            reverse('admin:%s_%s_change' % (account._meta.app_label, account.euser._meta.model_name),
-                    args=[account.euser.id]),
+        return format_html('<a href="%s?q=%s">%s</a>' % (
+            reverse('admin:%s_%s_changelist' % (account._meta.app_label, MonthBalance._meta.model_name)
+                    ), account.name,
             account.get_balance()))
 
     balances_link.short_description = "Баланс"
