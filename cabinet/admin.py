@@ -43,7 +43,8 @@ class UserChangeForm(forms.ModelForm):
     the user, but replaces the password field with admin's
     password hash display field.
     """
-    password = ReadOnlyPasswordHashField()
+
+    # password = ReadOnlyPasswordHashField()
 
     class Meta:
         model = EUser
@@ -128,7 +129,7 @@ class MonthBalanceAdmin(admin.ModelAdmin):
 
 @admin.register(Account)
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ('name', 'owner_link', 'date_open', 'date_closed', 'address_str', 'fias_address_uuid')
+    list_display = ('name', 'balances_link', 'owner_link', 'date_open', 'date_closed', 'address_str')
     list_display_links = ('name',)
     # fieldsets = (
     #     (None, {'fields': ('__all__',)}),
@@ -143,6 +144,15 @@ class AccountAdmin(admin.ModelAdmin):
             obj.euser.get_full_name()))
 
     owner_link.short_description = "Владелец"
+
+    def balances_link(self, account):
+
+        return format_html('<a href="%s"> %s</a>' % (
+            reverse('admin:%s_%s_change' % (account._meta.app_label, account.euser._meta.model_name),
+                    args=[account.euser.id]),
+            account.get_balance()))
+
+    balances_link.short_description = "Баланс"
 
 
 # Now register the new UserAdmin...
