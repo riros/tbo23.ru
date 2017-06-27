@@ -1,0 +1,148 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<head>
+    <!-- templatemo 418 form pack -->
+    <!-- 
+    Form Pack
+    http://www.templatemo.com/preview/templatemo_418_form_pack 
+    -->
+    <title>Личный кабинет</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
+    <link href="{% static 'formpack/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'formpack/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'formpack/css/bootstrap-theme.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'formpack/css/bootstrap-social.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'formpack/css/templatemo_style.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body class="templatemo-bg-image-1">
+<div class="container">
+
+    <div class="col-md-12">
+        {% if user.is_authenticated %}
+            <p class="errornote">
+                {% blocktrans trimmed %}
+                    You are authenticated as {{ username }}, but are not authorized to
+                    access this page. Would you like to login to a different account?
+                {% endblocktrans %}
+            </p>
+        {% endif %}
+
+        {#			<form class="form-horizontal templatemo-login-form-2" role="form" action="#" method="post">#}
+        <form class="form-horizontal templatemo-login-form-2" role="form" action="{{ app_path }}" method="post"
+              id="login-form">{% csrf_token %}
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Личный кабинет ООО "Кубань-ТБО", ООО "Абинск-ТБО"</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="templatemo-one-signin col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            {{ form.accountname.errors }}
+                            {#                            <label for="username" class="control-label">Username</label>#}
+                            {{ form.accountname.label_tag }}
+                            <div class="templatemo-input-icon-container">
+                                <i class="fa fa-user"></i>
+                                {#                                <input type="text" class="form-control" id="username" placeholder="">#}
+                                {{ form.accountname }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            {{ form.f.errors }}
+                            {#                            <label for="username" class="control-label">Username</label>#}
+                            {{ form.f.label_tag }}
+                            <div class="templatemo-input-icon-container">
+                                <i class="fa fa-user"></i>
+                                {#                                <input type="text" class="form-control" id="username" placeholder="">#}
+                                {{ form.f }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            {{ form.i.errors }}
+                            {#                            <label for="username" class="control-label">Username</label>#}
+                            {{ form.i.label_tag }}
+                            <div class="templatemo-input-icon-container">
+                                <i class="fa fa-user"></i>
+                                {#                                <input type="text" class="form-control" id="username" placeholder="">#}
+                                {{ form.i }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            {{ form.o.errors }}
+                            {#                            <label for="username" class="control-label">Username</label>#}
+                            {{ form.o.label_tag }}
+                            <div class="templatemo-input-icon-container">
+                                <i class="fa fa-user"></i>
+                                {#                                <input type="text" class="form-control" id="username" placeholder="">#}
+                                {{ form.o }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" checked>Запомнить
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="submit" value="Войти" class="btn btn-warning">
+                        </div>
+                    </div>
+                    {#				        <div class="form-group">#}
+                    {#				          	<div class="col-md-12">#}
+                    {#				        		<a href="forgot-password.html" class="text-center">Cannot login?</a>#}
+                    {#				       	 	</div>#}
+                    {#				    	</div>#}
+                </div>
+                <div class="templatemo-other-signin col-md-6">
+
+                    <p>
+                        <b>Для авторизации</b> необходимо ввести номер лицевого счета, указанный на вашей книжке и
+                        ФИО собственника, на которого заключен договор.
+                    </p>
+
+                    <p>
+                        Если у Вас возникли вопросы или трудности, обратитесь в служно технической поддержки.
+                        <a href="mailto:it@tbo23.ru" >it@tbo23.ru</a>
+
+                    </p>
+                    <h5>Доступ для ознакомления:</h5>
+                    <p>Лицевой счет:9999999999</p>
+                    <p>Фамилия: Иванов</p>
+                    <p>Имя: Иван</p>
+                    <p>Отчество: Иванович</p>
+                    {#						<label class="margin-bottom-15">#}
+                    {#							One-click sign in using other services. Credit goes to <a rel="nofollow" href="http://lipis.github.io/bootstrap-social/">Bootstrap Social</a> for social sign in buttons.#}
+                    {#						</label>#}
+                    {#						<a class="btn btn-block btn-social btn-facebook margin-bottom-15">#}
+                    {#						    <i class="fa fa-facebook"></i> Sign in with Facebook#}
+                    {#						</a>#}
+                    {#						<a class="btn btn-block btn-social btn-twitter margin-bottom-15">#}
+                    {#						    <i class="fa fa-twitter"></i> Sign in with Twitter#}
+                    {#						</a>#}
+                    {#						<a class="btn btn-block btn-social btn-google-plus">#}
+                    {#						    <i class="fa fa-google-plus"></i> Sign in with Google#}
+                    {#						</a>#}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

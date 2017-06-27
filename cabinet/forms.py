@@ -6,6 +6,7 @@ from django.contrib.auth import (
     authenticate, get_user_model, password_validation,
 )
 from django.utils.text import capfirst
+
 UserModel = get_user_model()
 
 
@@ -19,15 +20,33 @@ class AuthenticationForm(forms.Form):
     Base class for authenticating users. Extend this to get a form that accepts
     username/password logins.
     """
-    username = UsernameField(
+    accountname = UsernameField(
+        label='Лицевой счет',
+        max_length=20,
+        widget=forms.TextInput(attrs={'autofocus': True, 'class':'form-control'}),
+    )
+
+    f = UsernameField(
+        label='Фамилия',
         max_length=254,
-        widget=forms.TextInput(attrs={'autofocus': True}),
+        widget=forms.TextInput(attrs={'autofocus': True, 'class': 'form-control'}),
     )
-    password = forms.CharField(
-        label=_("Password"),
-        strip=False,
-        widget=forms.PasswordInput,
+    i = UsernameField(
+        label='Имя',
+        max_length=254,
+        widget=forms.TextInput(attrs={'autofocus': True, 'class': 'form-control'}),
     )
+    o = UsernameField(
+        label='Отчество',
+        max_length=254,
+        widget=forms.TextInput(attrs={'autofocus': True, 'class': 'form-control'}),
+    )
+
+    # password = forms.CharField(
+    #     label=_("Password"),
+    #     strip=False,
+    #     widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+    # )
 
     error_messages = {
         'invalid_login': _(
@@ -47,9 +66,9 @@ class AuthenticationForm(forms.Form):
         super(AuthenticationForm, self).__init__(*args, **kwargs)
 
         # Set the label for the "username" field.
-        self.username_field = UserModel._meta.get_field(UserModel.USERNAME_FIELD)
-        if self.fields['username'].label is None:
-            self.fields['username'].label = capfirst(self.username_field.verbose_name)
+        # self.username_field = UserModel._meta.get_field(UserModel.USERNAME_FIELD)
+        # if self.fields['accountname'].label is None:
+        #     self.fields['accountname'].label = capfirst(self.username_field.verbose_name)
 
     def clean(self):
         username = self.cleaned_data.get('username')
