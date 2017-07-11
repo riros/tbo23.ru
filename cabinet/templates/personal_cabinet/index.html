@@ -13,134 +13,146 @@
 {% block branding %} Личный кабинет ООО "Кубань-ТБО" {% endblock %}
 {% block content %}
     <div id="balances" class="container-fluid">
-        {% if accounts %}
-            {% for acc in accounts %}
-                <div class="row">
-                    <div class="col-md-8 col-md-push-2 col-xs-12 organization-balance-content">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <h3>{{ acc.organization.name }}</h3>
-                                    <h4> Лицевой счет № <b>{{ acc.name }}</b></h4>
-                                </div>
-                                <div class="col-md-7">
-                                    <h3>Баланс</h3>
-                                    <h4>
+    {% if accounts %}
+        {% for acc in accounts %}
+            <div class="row">
+                <div class="col-md-8 col-md-push-2 col-xs-12 organization-balance-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h3>{{ acc.organization.name }}</h3>
+                                <h4> Лицевой счет № <b>{{ acc.name }}</b></h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h3>Баланс</h3>
+                                <h4>
                                     <span>{% if acc.get_balance >= 0 %}переплата{% else %}задолжность{% endif %}
                                     </span>
-                                        <b style="color:{% if acc.get_balance >= 0 %}blue{% else %} red{% endif %};">{{ acc.get_balance|floatformat:2 }}</b>
+                                    <b style="color:{% if acc.get_balance >= 0 %}blue{% else %} red{% endif %};">{{ acc.get_balance|floatformat:2 }}</b>
                                     {% if acc.name != "99999999999" %}
-                                        <a class="btn btn-primary" href="/cabinet/logout">
+                                        <a class="btn btn-primary disabled" href="#">
                                             {% if acc.get_balance > 0 %}Пополнить{% else %}Оплатить{% endif %}
                                         </a>
                                     {% endif %}
-                                    </h4>
+                                </h4>
 
-                                </div>
-                                <a style="position: absolute; top:20px; right: 20px" class="btn btn-danger"
-                                   href="/cabinet/logout">Выход</a>
                             </div>
-                            {% if acc.euser.commment %}
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        {{ acc.euser.comment }}
-                                    </div>
-                                </div>
-                            {% endif %}
+                            <a style="position: absolute; top:20px; right: 20px" class="btn btn-danger"
+                               href="/cabinet/logout">Выход</a>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="container-fluid margin-top-15" id="balances_list">
+                        {% if acc.euser.commment %}
                             <div class="row">
                                 <div class="col-md-12">
-                                    <ul class="inline-ul-balances">
-                                        {% if acc.balances_count > 0 %}
-                                            {% for model in acc.get_balances %}
-                                                <li>
-                                                    <div>
-                                                        <div class="container-fluid">
-                                                            <div class="row">
-                                                                <label class="col-md-12 text-center">
-                                                                    {{ model.date|date:"M" }} {{ model.date|date:"Y" }}
-                                                                    г.
-                                                                </label>
+                                    {{ acc.euser.comment }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="container-fluid margin-top-15" id="balances_list">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="inline-ul-balances">
+                                    {% if acc.balances_count > 0 %}
+                                        {% for model in acc.get_balances %}
+                                            <li>
+                                                <div>
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <label class="col-md-12 text-center">
+                                                                {{ model.date|date:"M" }} {{ model.date|date:"Y" }}
+                                                                г.
+                                                            </label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                Кол. Проживающих:
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                                                    Кол. Проживающих:
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-6 col-xs-6 text-right">
-                                                                    {{ model.user_count }}
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                                                    цена услуги с человека:
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-6 col-xs-6 text-right">
-                                                                    {{ model.price }}
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                                                    Начислено:
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-6  col-xs-6 text-right">
-                                                                    {{ model.credit }}
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-sm-6  col-xs-6">
-                                                                    Оплачено:
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-6  col-xs-6 text-right">
-                                                                    {{ model.payment }}
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-sm-6  col-xs-6">
-                                                                    Скидка:
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-6  col-xs-6 text-right">
-                                                                    {% if model.discounts %}
-                                                                        {{ model.discounts }}{% else %}
-                                                                        0{% endif %}
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <label class="col-md-6 col-sm-6 col-xs-6">
-                                                                    Долг:
-                                                                </label>
-                                                                <label class="col-md-6 col-sm-6 col-xs-6 text-right">
-                                                                    {{ model.debet|floatformat:2 }}
-                                                                </label>
+                                                            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                                                {{ model.user_count }}
                                                             </div>
 
                                                         </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                цена услуги с человека:
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                                                {{ model.price }}
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                Начислено:
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6  col-xs-6 text-right">
+                                                                {{ model.credit }}
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6  col-xs-6">
+                                                                Оплачено:
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6  col-xs-6 text-right">
+                                                                {{ model.payment }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6  col-xs-6">
+                                                                Скидка:
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6  col-xs-6 text-right">
+                                                                {% if model.discounts %}
+                                                                    {{ model.discounts }}{% else %}
+                                                                    0{% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label class="col-md-6 col-sm-6 col-xs-6">
+                                                                Итог месяца:
+                                                            </label>
+                                                            <label class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                                                {{ model.debet|floatformat:2 }}
+                                                            </label>
+                                                        </div>
+
                                                     </div>
-                                                </li>
-                                            {% endfor %}
-                                        {% else %}
-                                            <li>
-                                                <div><label>{{ acc.balances_count }} Возможно у вас нет начислений и
-                                                    платежей, или они еще не загружены.
-                                                    Обратитесь в техническую поддержку.</label></div>
+                                                </div>
                                             </li>
-                                        {% endif %}
-                                    </ul>
-                                </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <li>
+                                            <div><label>{{ acc.balances_count }} Возможно у вас нет начислений и
+                                                платежей, или они еще не загружены.
+                                                Обратитесь в техническую поддержку.</label></div>
+                                        </li>
+                                    {% endif %}
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-        {% endif %}
-    </div>
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-push-3 col-xs-12 organization-balance-content ">
+                <h3>У вас нет лицевых счетов. </h3>
+                <a style="position: absolute; top:20px; right: 20px;" class="btn btn-danger "
+                   href="/cabinet/logout">Выход</a>
+                <div style="height: 20px"></div>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
 {% endblock %}
 
 {% block sidebar %}
