@@ -64,6 +64,7 @@ class EUserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
+
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
@@ -95,12 +96,15 @@ class EUserAdmin(BaseUserAdmin):
         for acc in accs:
             acclinks.append('<a href="%s">%s</a>' % (
                 reverse('admin:%s_%s_change' % (acc._meta.app_label, acc._meta.model_name),
-                        args=[acc.name]), acc.name
+                        args=[acc.id]), acc.name
             ))
         str = ', '.join(acclinks)
         return format_html(str)
 
     accounts.short_description = "Лицевые счета"
+
+
+
 
 
 @admin.register(MonthBalance)
@@ -123,7 +127,7 @@ class MonthBalanceAdmin(admin.ModelAdmin):
     def account_link(self, obj):
         return format_html('<a href="%s"> %s</a>' % (
             reverse('admin:%s_%s_change' % (obj._meta.app_label, obj.account._meta.model_name),
-                    args=[obj.account.name]),
+                    args=[obj.account.id]),
             obj.account.name))
 
     account_link.short_description = "Лицевой счет"
@@ -132,6 +136,8 @@ class MonthBalanceAdmin(admin.ModelAdmin):
         return format(MB.date, 'M Y')
 
     pretty_date.short_description = "период"
+
+    list_per_page = 20
 
 
 @admin.register(Organization)
@@ -165,6 +171,8 @@ class AccountAdmin(admin.ModelAdmin):
             account.get_balance()))
 
     balances_link.short_description = "Баланс"
+
+    list_per_page = 20
 
 
 # Now register the new UserAdmin...
