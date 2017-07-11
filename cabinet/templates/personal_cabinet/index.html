@@ -1,5 +1,5 @@
 {% extends "personal_cabinet/layout.html" %}
-{% load i18n static %}
+{% load i18n static www_templatetags%}
 
 {% block extrastyle %}{{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static "admin/custom/css/templatemo_main.css" %}"/>{% endblock %}
@@ -114,10 +114,10 @@
                                                         </div>
                                                         <div class="row">
                                                             <label class="col-md-6 col-sm-6 col-xs-6">
-                                                                Итог месяца:
+                                                               {% if model.debet > 0 %}Долг:{% else %}Переплата:{% endif %}
                                                             </label>
                                                             <label class="col-md-6 col-sm-6 col-xs-6 text-right">
-                                                                {{ model.debet|floatformat:2 }}
+                                                                {{ model.debet|abs|floatformat:2 }}
                                                             </label>
                                                         </div>
 
