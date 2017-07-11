@@ -1,25 +1,3 @@
-/* 
-Form Pack
-http://www.templatemo.com/preview/templatemo_418_form_pack
-	
-templatemo 418 form pack
-
-Credit: www.templatemo.com
-	1. General
-	2. login-form-1
-	3. login-form-2
-	4. inline-login
-	5. create-account
-	6. forgot-password
-	7. contact-form-1
-	8. contact-form-2
-	9. payment-form
-	10. Media Queries
-	
---------------------------------------------*/
-/* 1. General
---------------------------------------------*/
-
 *, body { font-family: 'Open Sans', sans-serif; }
 body { margin-bottom: 30px; }
 h1 {
@@ -328,7 +306,22 @@ h2 {
 .radio-inline+.radio-inline { margin-left: 0; }
 .templatemo-radio-container { margin-left: 15px; }
 
+.organization-balance-content {
 
+	border-radius: 5px;
+	background-color: rgba(255, 255, 255, 0.8);
+	margin-top: 15px;
+}
+
+.organization-balance-content table{
+	width:100%;
+}
+
+.vcenter {
+	display: inline-block;
+	vertical-align: middle;
+	float: none;
+}
 /*-------------------------------------
 10. Media Queries
 ---------------------------------------*/

@@ -9,6 +9,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
+
 from phonenumber_field.modelfields import PhoneNumberField
 from django.db import models
 import random
@@ -93,6 +94,7 @@ class EUser(AbstractUser):
     pass
 
     # @staticmethod
+
     # def extract_phone(phone=''):
     #     # todo
     #     return phone.replace('+7', '') \
@@ -130,8 +132,17 @@ class EUser(AbstractUser):
         return random.randrange(100000000000, 999999999999)
 
 
+class Organization(defModel):
+    name = CharField(max_length=255, null=False, help_text='Название организации',
+                     verbose_name='Организация', default='ООО "Кубань-ТБО"')
+
+    def __str__(self):
+        return self.name
+
+
 class Account(defModel):
-    name = CharField(max_length=12, primary_key=True, null=False, help_text='номер лицевого счета',
+    _balance_cache = None
+    name = CharField(max_length=12, null=False, help_text='номер лицевого счета',
                      verbose_name='Лицевой счет')
     # ic_owner_id = UUIDField(null=False, default='00000000-0000-0000-0000-000000000000', verbose_name='код пользователя в 1с')
     address_str = TextField(null=True, blank=True, verbose_name='Адрес')
@@ -142,6 +153,7 @@ class Account(defModel):
     message = TextField(null=True, verbose_name='сообщение пользователю', blank=True)
     euser = ForeignKey(EUser, default=1, help_text='Владелец лицевого счета',
                        verbose_name='Владелец', on_delete=models.CASCADE)
+    organization = ForeignKey(Organization, on_delete=models.CASCADE, verbose_name="Организация", default=1)
 
     # balances = OneToOneRel('date', MonthBalance, 'account')
 
@@ -150,7 +162,7 @@ class Account(defModel):
         verbose_name_plural = _('Лицевые счета')
 
     def get_balance(self, accurate=2):
-        mbs = MonthBalance.objects.filter(active=True, account=self)
+        mbs = MonthBalance.objects.filter(active=True, account=self).order_by('date')
         ret = 0
         for mb in mbs:
             ret = ret - mb.debet
@@ -165,7 +177,18 @@ class Account(defModel):
 
     @property
     def get_balances(self):
-        return MonthBalance.objects.all().filter(account=self.name).order_by('-date')
+        return MonthBalance.objects.filter(account=self).order_by('-date')
+
+    @property
+    def balances_count(self):
+        return self.get_balances.count()
+
+    @staticmethod
+    def find_user_from_afio(a, f, i, o):
+        q = Account.objects.filter(name__iexact=a, active=True, euser__first_name__iexact=i, euser__last_name__iexact=f,
+                                   euser__middle_name__iexact=o)
+
+        return q.get().euser if q.exists() else None
 
 
 class MonthBalance(defModel):
@@ -185,15 +208,11 @@ class MonthBalance(defModel):
         verbose_name_plural = _('Балансы по месяцам')
 
     def __str__(self):
-        return self.account.name + self.date.strftime("/YYYY-MM")
+        return "%s-%s г." % ( self.date.month,  self.date.year)
 
     @property
     def d_name(self):
         return self.account.name + "/%i-%i" % (self.date.year, self.date.month)
-
-    @property
-    def short_name(self):
-        return "%i-%i" % (self.date.year, self.date.month)
 
 
 @receiver(pre_save, sender=EUser)

@@ -1,0 +1,91 @@
+[  {
+    "model": "website.lic",
+    "pk": 1,
+    "fields": {
+      "cdate": "2017-06-26T13:36:53.956",
+      "pdate": "2017-06-26T13:36:41",
+      "active": true,
+      "img": "lics/1_CXWgQld.jpg",
+      "img_crop": "76,0,1123,1698",
+      "img_crop_thumbnail": "76,0,1126,1698",
+      "text": "",
+      "title": "",
+      "prior": 0
+    }
+  },
+  {
+    "model": "website.lic",
+    "pk": 2,
+    "fields": {
+      "cdate": "2017-06-26T13:37:09.846",
+      "pdate": "2017-06-26T13:36:54",
+      "active": true,
+      "img": "lics/2_y3JdYTd.jpg",
+      "img_crop": "192,0,1030,1358",
+      "img_crop_thumbnail": "198,0,1036,1358",
+      "text": "",
+      "title": "",
+      "prior": 0
+    }
+  },
+  {
+    "model": "website.lic",
+    "pk": 3,
+    "fields": {
+      "cdate": "2017-06-26T13:37:27.256",
+      "pdate": "2017-06-26T13:37:10",
+      "active": true,
+      "img": "lics/2_Vzt0Doi.jpg",
+      "img_crop": "1014,0,1852,1358",
+      "img_crop_thumbnail": "998,0,1836,1358",
+      "text": "",
+      "title": "",
+      "prior": 0
+    }
+  },
+  {
+    "model": "website.lic",
+    "pk": 4,
+    "fields": {
+      "cdate": "2017-06-26T13:37:41.880",
+      "pdate": "2017-06-26T13:37:27",
+      "active": true,
+      "img": "lics/3_feR5QXC.jpg",
+      "img_crop": "198,0,1036,1358",
+      "img_crop_thumbnail": "224,0,1062,1358",
+      "text": "",
+      "title": "",
+      "prior": 0
+    }
+  },
+  {
+    "model": "website.lic",
+    "pk": 5,
+    "fields": {
+      "cdate": "2017-06-26T13:37:55.602",
+      "pdate": "2017-06-26T13:37:42",
+      "active": true,
+      "img": "lics/3_t4UprRG.jpg",
+      "img_crop": "1024,0,1862,1358",
+      "img_crop_thumbnail": "1004,0,1843,1358",
+      "text": "",
+      "title": "",
+      "prior": 0
+    }
+  },
+  {
+    "model": "website.lic",
+    "pk": 6,
+    "fields": {
+      "cdate": "2017-06-26T13:38:07.183",
+      "pdate": "2017-06-26T13:37:55",
+      "active": true,
+      "img": "lics/4_GIGezQD.jpg",
+      "img_crop": "76,0,1123,1698",
+      "img_crop_thumbnail": "76,0,1126,1698",
+      "text": "",
+      "title": "",
+      "prior": 0
+    }
+  }
+]

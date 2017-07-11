@@ -134,6 +134,12 @@ class MonthBalanceAdmin(admin.ModelAdmin):
     pretty_date.short_description = "период"
 
 
+@admin.register(Organization)
+class OrganizationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name',)
+    list_editable = ('name',)
+
+
 @admin.register(Account)
 class AccountAdmin(admin.ModelAdmin):
     list_display = ('name', 'balances_link', 'owner_link', 'date_open', 'date_closed', 'address_str')

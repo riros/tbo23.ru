@@ -4,9 +4,7 @@ from django.contrib.auth import (
     REDIRECT_FIELD_NAME, get_user_model, login as auth_login,
     logout as auth_logout, update_session_auth_hash,
 )
-from django.contrib.auth.forms import (
-    AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm,
-)
+
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import resolve_url
 
@@ -30,10 +28,14 @@ from .models import *
 from .forms import AuthenticationForm
 from project import settings
 
+from django.urls import NoReverseMatch, reverse
+
 SESSION_KEY = '_auth_user_id'
 BACKEND_SESSION_KEY = '_auth_user_backend'
 HASH_SESSION_KEY = '_auth_user_hash'
-REDIRECT_FIELD_NAME = 'next'
+
+
+# REDIRECT_FIELD_NAME = 'next'
 
 
 # @cache_page(60 * 15)
@@ -70,7 +72,7 @@ class LoginView(SuccessURLAllowedHostsMixin, FormView):
     # template_name = 'personal_cabinet/login.html'
     template_name = 'personal_cabinet/login-2.html'
 
-    redirect_authenticated_user = False
+    redirect_authenticated_user = True
     extra_context = None
 
     @method_decorator(sensitive_post_parameters())
@@ -128,6 +130,12 @@ class LoginView(SuccessURLAllowedHostsMixin, FormView):
         if self.extra_context is not None:
             context.update(self.extra_context)
         return context
+
+
+@never_cache
+def logout(req):
+    auth_logout(req)
+    return HttpResponseRedirect('/')
 
 # @login_required()
 # def load_users(req):

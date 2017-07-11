@@ -23,7 +23,7 @@ class Command(BaseCommand):
             if os.path.isfile(file):
                 self.stdout.write(self.style.SUCCESS('файл загружен...'))
 
-                inactive_users = EUser.objects.filter(is_active=False).delete()
+                inactive_users = EUser.objects.filter(is_staff=False).delete()
 
                 for r in json.load(open(file)):
                     n = r['n']
@@ -58,7 +58,7 @@ class Command(BaseCommand):
                                 euser = EUser()
                             euser.alias_id = alias_id
                             euser.set_password(uuid.uuid1().hex)
-                            euser.is_active = False
+                            euser.is_active = True
                             euser.email = str(euser.generate_activation_code()) + '@tbo23.ru'
 
                         euser.first_name = EUser.extract_first_name(r['owner'])
@@ -132,7 +132,8 @@ class Command(BaseCommand):
                             mb.price = b['price']
                             mb.credit = b['credit']
                             mb.payment = b['payment']
-                            mb.debet = b['debet']
+                            # mb.debet = b['debet']
+                            mb.debet = mb.credit - mb.payment
                             mb.save()
             else:
                 self.stdout.write(self.style.ERROR("'%s' не файл!" % (file)))

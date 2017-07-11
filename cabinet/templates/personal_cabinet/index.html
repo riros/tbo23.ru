@@ -1,101 +1,145 @@
-{% extends "layout.html" %}
+{% extends "personal_cabinet/layout.html" %}
 {% load i18n static %}
 
 {% block extrastyle %}{{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}"/>{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/custom/css/templatemo_main.css" %}"/>{% endblock %}
 
 {% block coltype %}colC{% endblock %}
 
 {% block bodyclass %}{{ block.super }} dashboard{% endblock %}
-
-{% block usertools %}
-    <div id="user-tools">
-        {% block welcome-msg %}
-            {% trans 'Welcome,' %}
-            {#                <a href="{% url 'admin:euser_edit' %}">#}
-            <strong>{% firstof user.get_full_name user.get_short_name user.get_username %}</strong>.
-            {#                </a>#}
-        {% endblock %}
-        {% block userlinks %}
-            {% if site_url %}
-                <a href="{{ site_url }}">{% trans 'View site' %}</a> /
-            {% endif %}
-            {% if user.has_usable_password %}
-                <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
-            {% endif %}
-            <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
-        {% endblock %}
-    </div>
-{% endblock %}
+{% block footer %}{% endblock %}
 
 {% block breadcrumbs %}{% endblock %}
 {% block branding %} Личный кабинет ООО "Кубань-ТБО" {% endblock %}
 {% block content %}
-    <div id="content-main">
-        <div class="row">
-            <div class="col-lg-3">
-            </div>
-            <div class="col-lg-6">
-                {% if accounts %}
-                    {% for acc in accounts %}
-                        <div class="account-{{ acc.name }} module">
-                            <table>
-                                <caption>
-                                    <div class="section">Лицевой счет № {{ acc.name }}</div>
-                                </caption>
+    <div id="balances" class="container-fluid">
+        {% if accounts %}
+            {% for acc in accounts %}
+                <div class="row">
+                    <div class="col-md-8 col-md-push-2 col-xs-12 organization-balance-content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h3>{{ acc.organization.name }}</h3>
+                                    <h4> Лицевой счет № <b>{{ acc.name }}</b></h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <h3>Баланс</h3>
+                                    <h4>
+                                    <span>{% if acc.get_balance >= 0 %}переплата{% else %}задолжность{% endif %}
+                                    </span>
+                                        <b style="color:{% if acc.get_balance >= 0 %}blue{% else %} red{% endif %};">{{ acc.get_balance|floatformat:2 }}</b>
+                                    {% if acc.name != "99999999999" %}
+                                        <a class="btn btn-primary" href="/cabinet/logout">
+                                            {% if acc.get_balance > 0 %}Пополнить{% else %}Оплатить{% endif %}
+                                        </a>
+                                    {% endif %}
+                                    </h4>
 
-                                {% if acc.get_balances %}
-                                    <tr>
-                                        <th scope="row">Период</th>
-                                        <th scope="row">Количество проживающих</th>
-                                        <th scope="row">Цена услуги с человека</th>
-                                        <th scope="row">Начислено</th>
-                                        <th scope="row">Платеж</th>
-                                        <th scope="row">Задолжность</th>
-                                        <th scope="row">скидка в рублях</th>
-                                    </tr>
-                                    {% for model in acc.get_balances %}
-                                        <tr class="model-{{ model.pk|lower }}">
-                                            <td scope="row">{{ model.short_name }}</td>
-                                            <td scope="row">{{ model.user_count }}</td>
-                                            <td scope="row">{{ model.price }}</td>
-                                            <td scope="row">{{ model.credit }}</td>
-                                            <td scope="row">{{ model.payment }}</td>
-                                            <td scope="row">{{ model.debt }}</td>
-
-                                            <td scope="row">
-                                                {% if model.discounts %}
-                                                    {{ model.discounts }}
-                                                {% else %}
-                                                    нет
-                                                {% endif %}
-                                            </td>
-
-                                        </tr>
-                                    {% endfor %}
-                                {% else %}
-                                    <tr>
-                                        <td>Данные или еще не загружены, или лицевой счет не содержит начислений.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="http://tbo23.ru/">Венуться на сайт tbo23.ru</a></td>
-                                    </tr>
-                                {% endif %}
-                            </table>
+                                </div>
+                                <a style="position: absolute; top:20px; right: 20px" class="btn btn-danger"
+                                   href="/cabinet/logout">Выход</a>
+                            </div>
+                            {% if acc.euser.commment %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ acc.euser.comment }}
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-bottom-30">
-                                <h2>Осталось еще немного...</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="container-fluid margin-top-15" id="balances_list">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="inline-ul-balances">
+                                        {% if acc.balances_count > 0 %}
+                                            {% for model in acc.get_balances %}
+                                                <li>
+                                                    <div>
+                                                        <div class="container-fluid">
+                                                            <div class="row">
+                                                                <label class="col-md-12 text-center">
+                                                                    {{ model.date|date:"M" }} {{ model.date|date:"Y" }}
+                                                                    г.
+                                                                </label>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                    Кол. Проживающих:
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                                                    {{ model.user_count }}
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                    цена услуги с человека:
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                                                    {{ model.price }}
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                    Начислено:
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6  col-xs-6 text-right">
+                                                                    {{ model.credit }}
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6  col-xs-6">
+                                                                    Оплачено:
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6  col-xs-6 text-right">
+                                                                    {{ model.payment }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6  col-xs-6">
+                                                                    Скидка:
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6  col-xs-6 text-right">
+                                                                    {% if model.discounts %}
+                                                                        {{ model.discounts }}{% else %}
+                                                                        0{% endif %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <label class="col-md-6 col-sm-6 col-xs-6">
+                                                                    Долг:
+                                                                </label>
+                                                                <label class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                                                    {{ model.debet|floatformat:2 }}
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            {% endfor %}
+                                        {% else %}
+                                            <li>
+                                                <div><label>{{ acc.balances_count }} Возможно у вас нет начислений и
+                                                    платежей, или они еще не загружены.
+                                                    Обратитесь в техническую поддержку.</label></div>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    {#            <p>{% trans "You don't have permission to edit anything." %}</p>#}
-                {% endif %}
-            </div>
-        </div>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
 

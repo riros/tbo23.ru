@@ -1,0 +1,21 @@
+{% load static i18n %}
+<html>
+<head>
+    <title>Личный кабинет</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
+    <link href="{% static 'formpack/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'formpack/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'formpack/css/bootstrap-theme.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'formpack/css/bootstrap-social.css' %}" rel="stylesheet" type="text/css">
+    {% block extrastyle %} {% endblock %}
+    <link href="{% static 'formpack/css/templatemo_style.css' %}" rel="stylesheet" type="text/css">
+
+</head>
+<body class="templatemo-bg-image-1">
+{% block content %}{% endblock %}
+</body>
+</html>

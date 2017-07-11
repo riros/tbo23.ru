@@ -18,28 +18,43 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
 
 /* 1. CSS Imports
 --------------------------------------- */
-@import url('http://fonts.googleapis.com/css?family=Open Sans:300,400,700');
-@import url(font-awesome.min.css);
-@import url(bootstrap.min.css);
+/*@import url('http://fonts.googleapis.com/css?family=Open Sans:300,400,700');*/
+/*@import url(font-awesome.min.css);*/
+/*@import url(bootstrap.min.css);*/
 
 /* 2. General Styles
 --------------------------------------- */
-* { font-family: 'Open Sans', sans-serif; }
-body { background-color: rgb(235,235,235); }
-h1 { font-size: 24px; }
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    background-color: rgb(235, 235, 235);
+}
+
+h1 {
+    font-size: 24px;
+}
+
 .btn a {
     color: white;
     text-decoration: none;
 }
-.logo { display: inline-block; }
+
+.logo {
+    display: inline-block;
+}
+
 .logo h1 {
     font-size: 24px;
     margin: 10px 15px;
 }
+
 .templatemo-content-wrapper {
     float: left;
     width: 100%;
 }
+
 .templatemo-content {
     margin-left: 235px;
     margin-top: 0px;
@@ -48,6 +63,7 @@ h1 { font-size: 24px; }
     background-color: white;
     overflow-x: hidden;
 }
+
 .templatemo-footer {
     clear: both;
     font-size: 13px;
@@ -56,8 +72,22 @@ h1 { font-size: 24px; }
     color: #ccc;
     background-color: #333;
 }
-.margin-bottom-15 { margin-bottom: 15px; }
-.margin-bottom-30 { margin-bottom: 30px; }
+
+.margin-bottom-15 {
+    margin-bottom: 15px;
+}
+
+.margin-bottom-30 {
+    margin-bottom: 30px;
+}
+
+.margin-top-15 {
+    margin-top: 15px;
+}
+
+.margin-top-30 {
+    margin-top: 39px;
+}
 
 /* 3. Sidebar
 ------------------------------------------------------*/
@@ -65,26 +95,34 @@ h1 { font-size: 24px; }
     width: 150px;
     display: inline-block;
 }
+
 .navbar {
     margin-bottom: 0;
     border-radius: 0;
 }
-.navbar-header { color: rgb(127,127,127); }
+
+.navbar-header {
+    color: rgb(127, 127, 127);
+}
+
 .templatemo-sidebar {
     padding: 0;
     margin-top: 20px;
 }
+
 .templatemo-sidebar .templatemo-sidebar-menu {
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 .templatemo-sidebar .templatemo-sidebar-menu > li {
     display: block;
     margin: 0;
     padding: 0;
     border: 0px;
 }
+
 .templatemo-sidebar .templatemo-sidebar-menu > li > a {
     display: block;
     position: relative;
@@ -93,31 +131,52 @@ h1 { font-size: 24px; }
     padding: 20px 15px;
     text-decoration: none;
     font-size: 14px;
-    font-weight: 300;    
+    font-weight: 300;
 }
-.templatemo-sidebar-menu a { color: black; }
-.templatemo-sidebar-menu a:hover { text-decoration: none; }
-.templatemo-sidebar-menu li.sub .templatemo-submenu { display: none; }
-.templatemo-sidebar-menu li.sub.open .templatemo-submenu { display: block; }
-.templatemo-submenu { padding-left: 0; }
+
+.templatemo-sidebar-menu a {
+    color: black;
+}
+
+.templatemo-sidebar-menu a:hover {
+    text-decoration: none;
+}
+
+.templatemo-sidebar-menu li.sub .templatemo-submenu {
+    display: none;
+}
+
+.templatemo-sidebar-menu li.sub.open .templatemo-submenu {
+    display: block;
+}
+
+.templatemo-submenu {
+    padding-left: 0;
+}
+
 .templatemo-submenu li {
     list-style: none;
     background-color: #DFDFDF;
 }
+
 .templatemo-submenu li a {
     display: block;
     padding: 20px 15px;
     margin: 0;
 }
+
 .templatemo-sidebar-menu > li.sub.open > a {
-    background-color: rgba(145,145,145,0.3);
+    background-color: rgba(145, 145, 145, 0.3);
 }
-.templatemo-sidebar .templatemo-sidebar-menu >li.active, .templatemo-sidebar .templatemo-sidebar-menu>li>a:hover {
+
+.templatemo-sidebar .templatemo-sidebar-menu > li.active, .templatemo-sidebar .templatemo-sidebar-menu > li > a:hover {
     background-color: rgb(191, 232, 167);
 }
+
 .templatemo-submenu li > a:hover {
-    background-color: rgb(228,228,228);
+    background-color: rgb(228, 228, 228);
 }
+
 .templatemo-sidebar .templatemo-sidebar-menu > li > a > i {
     font-size: 16px;
     top: 2px;
@@ -129,7 +188,44 @@ h1 { font-size: 24px; }
     text-align: center;
 }
 
-/* 4. Charts 
+.inline-ul-balances {
+    float: left;
+    display: inline-block;
+    list-style-type: none;
+    padding-left: 0px;
+    width: 100%;
+}
+
+.inline-ul-balances li {
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.inline-ul-balances li > div {
+    background-color: whitesmoke;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top: 10px;
+    width: 270px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    /*height: 200px;*/
+}
+
+.inline-ul-balances li > div > span {
+    float: right;
+}
+
+.inline-ul-balances .row:nth-child(odd) {
+    background-color: white;
+}
+
+.inline-ul-balances .row:nth-child(even) {
+    background-color: rgb(255, 225, 129);
+}
+
+/* 4. Charts
 --------------------------------------------*/
 .templatemo-chart-box {
     display: inline-block;
@@ -151,6 +247,7 @@ h1 { font-size: 24px; }
     max-width: 600px;
     margin: 0 auto;
 }
+
 .form-horizontal .form-group {
     margin-right: 0;
     margin-left: 0;
@@ -158,22 +255,29 @@ h1 { font-size: 24px; }
 
 /* 7. tables.html
 ------------------------------------------*/
-#templatemo_sort_btn { margin-bottom: 20px; }
+#templatemo_sort_btn {
+    margin-bottom: 20px;
+}
 
 /* 8. Bootstrap overrides
 ----------------------------------------------*/
-.nav-pills>li>a, .nav-tabs>li>a, .alert, .progress, .panel, .btn, .panel-group .panel, .form-control, .modal-content, .breadcrumb {
+.nav-pills > li > a, .nav-tabs > li > a, .alert, .progress, .panel, .btn, .panel-group .panel, .form-control, .modal-content, .breadcrumb {
     border-radius: 0;
 }
+
 .list-group-item:first-child, .panel-heading {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
 .list-group-item:last-child {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
-.form-control-feedback { right: 15px; }
+
+.form-control-feedback {
+    right: 15px;
+}
 
 /* 9. Maps
 ------------------------------------------------------*/
@@ -181,7 +285,10 @@ h1 { font-size: 24px; }
     width: 15px;
     height: 15px;
 }
-.vmap { height: 400px; }
+
+.vmap {
+    height: 400px;
+}
 
 /* 10. Media Queries
 ------------------------------------------------------*/
@@ -193,20 +300,30 @@ h1 { font-size: 24px; }
         margin-right: -100%;
     }
 }
+
 @media screen and (max-width: 991px) {
     .navbar-form {
         padding: 0;
         margin-left: 0;
     }
-    .navbar-header { float: none; }
-    .navbar-toggle { display: block; }
+
+    .navbar-header {
+        float: none;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+
     .templatemo-sidebar {
         border-top: 0 !important;
         margin: 20px;
     }
+
     .templatemo-sidebar.navbar-collapse.collapse {
         display: none !important;
     }
+
     .templatemo-sidebar.navbar-collapse.in {
         border-top: 0 !important;
         margin: 20px;
@@ -215,9 +332,16 @@ h1 { font-size: 24px; }
         overflow-y: auto !important;
         display: block !important;
     }
-    .templatemo-content-wrapper { float: none; }
-    .templatemo-content { margin: 0; }
+
+    .templatemo-content-wrapper {
+        float: none;
+    }
+
+    .templatemo-content {
+        margin: 0;
+    }
 }
+
 @media screen and (max-width: 767px) {
     .templatemo-chart-box {
         padding-right: 0;
