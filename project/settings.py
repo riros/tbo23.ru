@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-PRODUCTION_PLATFORM_NODE = 'raspberrypi'
+PRODUCTION_PLATFORM_NODE = 'tbovserver'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if platform.node() != PRODUCTION_PLATFORM_NODE:
@@ -116,20 +116,22 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'tbo23',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'postgres'
-    #     # 'NAME': 'cabinet',
-    #     # 'USER': 'cxdbuser',
-    #     # 'PASSWORD': 'cxdbwizard',
-    #     # 'PORT': 10000
-    # },
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'tbo23',
+         'USER': 'postgres',
+         'PASSWORD': 'postgres',
+         'HOST': 'localhost'
+         
+         # 'NAME': 'cabinet',
+         # 'USER': 'cxdbuser',
+         # 'PASSWORD': 'cxdbwizard',
+         # 'PORT': 10000
+     }
+    #'default': {
+    #	'ENGINE': 'django.db.backends.sqlite3',
+    #	'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #}
 
 }
 
