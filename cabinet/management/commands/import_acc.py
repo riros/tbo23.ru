@@ -122,8 +122,8 @@ class Command(BaseCommand):
                             pydate = datetime.datetime.strptime(b['date'], "%Y-%m-%dT%H:%M:%S.%fZ")
                             mb = MonthBalance.objects.filter(account=acc, date=pydate)
                             if mb.exists():
-                                self.stdout.write("перезапись баланса %s %s \n" % (mb.account.name, pydate))
                                 mb = mb.get()
+                                self.stdout.write("перезапись баланса %s %s \n" % (mb.account.name, pydate))
                             else:
                                 mb = MonthBalance()
                                 mb.account = acc
