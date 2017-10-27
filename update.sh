@@ -9,4 +9,4 @@ python3 manage.py migrate
 #systemctl restart uwsgi-app@lanzeva
 systemctl restart uwsgi
 systemctl restart nginx
-sudo chown www-data:www-data -R /var/www/tbo23.ru
+sudo chown nginx:nginx -R /var/www/tbo23.ru
